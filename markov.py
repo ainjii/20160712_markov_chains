@@ -56,7 +56,13 @@ def make_text(chains, n):
     """Takes dictionary of markov chains; returns random text."""
 
     text = ""
-    key = choice(chains.keys())
+    
+    cap_keys = []
+    for key in chains.keys():
+        if key == key.capitalize():
+            cap_keys.append(key)
+    
+    key = choice(cap_keys)
 
     while chains.get(key, False):
         next_word = choice(chains[key])
