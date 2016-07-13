@@ -32,22 +32,22 @@ def make_chains(text_string, n):
     words = text_string.split()
 
     
-    #get keys for chains dictionary
+    # get keys for chains dictionary
     for i in range(len(words)-n):
 
         chains_key = tuple(words[i:i+n])
-        #chains = (words[i], words[i+1])
+        # chains = (words[i], words[i+1])
 
         chains_value = words[i+n]
 
-        #print chains_key
-        #print chains_value
+        # print chains_key
+        # print chains_value
     
         chains[chains_key] = chains.get(chains_key, [])
         # don't assign this to a value because .append returns none
         chains[chains_key].append(chains_value)
 
-        #print chains
+        # print chains
     
     return chains
 
@@ -64,12 +64,12 @@ def make_text(chains, n):
         next_word = choice(chains[key])
         text += "{} ".format(next_word)
 
-        #start range at 1 because don't need first element in key (already used)
+        # start range at 1 because don't need first element in key (already used)
         key_list = [key[i] for i in range(1, len(key))]
         key_list.append(next_word)
 
         key = tuple(key_list)
-        #print key will print out the tuple of 3 elements
+        # print key will print out the tuple of 3 elements
 
     return text
 
@@ -82,7 +82,7 @@ input_text = open_and_read_file(input_path)
 
 # Get a Markov chain
 chains = make_chains(input_text, n)
-# print chains
+
 # Produce random text
 random_text = make_text(chains, n)
 
