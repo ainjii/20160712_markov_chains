@@ -57,11 +57,7 @@ def make_text(chains, n):
 
     text = ""
     
-    cap_keys = []
-    for key in chains.keys():
-        if key == key.capitalize():
-            cap_keys.append(key)
-    
+    cap_keys = [key for key in chains.keys() if key[0] == key[0].capitalize()]
     key = choice(cap_keys)
 
     while chains.get(key, False):
