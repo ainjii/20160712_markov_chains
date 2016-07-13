@@ -54,16 +54,26 @@ def make_chains(text_string, n):
 
 def make_text(chains, n):
     """Takes dictionary of markov chains; returns random text."""
-
-    text = ""
     
     cap_keys = [key for key in chains.keys() if key[0] == key[0].capitalize()]
     key = choice(cap_keys)
 
-    while chains.get(key, False):
-        next_word = choice(chains[key])
-        text += "{} ".format(next_word)
+    
+    text = " ".join(key) + " "
+    text_since_punctuation = ""
 
+    #limiting output by character count if there's never an end to the string concatenation
+    #could have user specify the default cut off value (characters)
+    while chains.get(key, False) and len(text) < 140:
+        # print text
+        # print key
+        next_word = choice(chains[key])
+        text_since_punctuation += "{} ".format(next_word)
+
+        if text_since_punctuation.rstrip().endswith(('.', '!', '?', '"', "'", "...", ",")):
+            text += text_since_punctuation
+            text_since_punctuation = ""
+        
         # start range at 1 because don't need first element in key (already used)
         key_list = [key[i] for i in range(1, len(key))]
         key_list.append(next_word)
@@ -79,11 +89,11 @@ n = int(argv[2])
 
 # Open the file and turn it into one long string
 input_text = open_and_read_file(input_path)
-
+# print 'got input_text'
 # Get a Markov chain
 chains = make_chains(input_text, n)
-
+# print 'chains made'
 # Produce random text
 random_text = make_text(chains, n)
-
+# print 'random_text made'
 print random_text
