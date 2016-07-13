@@ -59,8 +59,8 @@ def make_text(chains, n):
     key = choice(cap_keys)
 
     
-    text = " ".join(key) + " "
-    text_since_punctuation = ""
+    text = ""
+    text_since_punctuation = " ".join(key) + " "
 
     #limiting output by character count if there's never an end to the string concatenation
     #could have user specify the default cut off value (characters)
